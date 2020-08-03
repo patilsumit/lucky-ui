@@ -1,0 +1,52 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-6 m-auto">
+      <div class="mt-5">
+        <div class="card card-body ">
+          <h1 class="text-center mb-3 font-weight-lighter">
+            <i class="fa fa-sign-in"></i> Please sign in
+          </h1>
+          <form (ngSubmit)="f.form.valid && userLogin()"  #f="ngForm" novalidate>
+
+            <div class="form-group">
+              <label>Email</label>
+              <input type="text" class="form-control" name="email" [(ngModel)]="user.userEmail" #email="ngModel"
+                     [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" autocomplete="on" required email/>
+              <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+                <div *ngIf="email.errors.required">Email is required</div>
+                <div *ngIf="email.errors.email">Email must be a valid email address</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control" name="password" [(ngModel)]="user.userPassword"
+                     #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required
+                     minlength="6"  autocomplete="on" />
+              <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
+                <div *ngIf="password.errors.required">Password is required</div>
+                <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              Login
+            </button>
+          </form>
+          <p class="lead mt-4">Create An Account? <a routerLink="/users/signup">SignUp</a></p>
+          <p class="lead mt-4">Forget Password? <a routerLink="/users/forget-password">click here</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Success message -->
+<div class="success" *ngIf="showSucessMessage">
+  Saved successfully
+</div>
+
+<div class="bg-warning" *ngIf="serverErrorMessages">
+  <div class="alert alert-danger fade show"><span>{{serverErrorMessages}}</span></div>
+</div>
+
+
+

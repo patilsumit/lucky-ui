@@ -1,0 +1,65 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-6 m-auto">
+      <div class="mt-5">
+        <div class="card card-body ">
+          <h1 class="text-center mb-3 font-weight-lighter">
+            <i class="fa fa-user"></i> {{todoPageName}}
+          </h1>
+
+          <form name="form" (ngSubmit)="f.form.valid && addTodo(f)" #f="ngForm" novalidate>
+            <div class="form-group">
+              <label>Todo Task</label>
+              <input type="text" class="form-control" name="todoTask" [(ngModel)]="todo.todoTask" #todoTask="ngModel"
+                     [ngClass]="{ 'is-invalid': f.submitted && todoTask.invalid }" required />
+              <div *ngIf="f.submitted && todoTask.invalid" class="invalid-feedback">
+                <div *ngIf="todoTask.errors.required">Todo Task is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Todo Due Date</label>
+              <input type="date" class="form-control" name="todoDueDate" [(ngModel)]="todo.todoDueDate"
+                     #todoDueDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && todoDueDate.invalid }" required >
+              <div *ngIf="f.submitted && todoDueDate.invalid" class="invalid-feedback">
+                <div *ngIf="todoDueDate.errors.required">Todo Due Date is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Todo Time</label>
+              <input type="time" class="form-control" name="todoTime" [(ngModel)]="todo.todoTime" #todoTime="ngModel"
+                     [ngClass]="{ 'is-invalid': f.submitted && todoTime.invalid }" required>
+              <div *ngIf="f.submitted && todoTime.invalid" class="invalid-feedback">
+                <div *ngIf="todoTime.errors.required">Todo Time is required</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Todo Status</label>
+              <select name="todoStatus" class="form-control dropdown-toggle"
+                      [(ngModel)]="todo.todoStatus" #todoStatus="ngModel" [ngClass]="{ 'is-invalid': f.submitted && todoStatus.invalid }"
+                      required >
+                <option value="pending" >pending</option>
+                <option value="completed" >completed</option>
+              </select>
+              <div *ngIf="f.submitted && todoStatus.invalid" class="invalid-feedback">
+                <div *ngIf="todoStatus.errors.required">Todo Status is required</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="success" *ngIf="showSucessMessage">
+  <div class="alert alert-primary fade show"><span>{{showSucessMessage}}</span></div>
+</div>
+
+<div class="bg-warning" *ngIf="serverErrorMessages">
+  <div class="alert alert-danger fade show"><span>{{serverErrorMessages}}</span></div>
+</div>

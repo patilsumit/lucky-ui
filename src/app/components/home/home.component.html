@@ -1,0 +1,86 @@
+<div class="container-fluid">
+  <div class="row">
+    <h3 class="font-weight-lighter float-right ml-auto mt-1 mr-3" routerLink="/todo/create">
+      <i class="fa fa-plus"></i> Create Todo
+    </h3>
+  </div>
+</div>
+
+
+<div class="offset-md-2 col-md-8">
+
+  <h1 class="text-center">Todo List</h1>
+  <label class="ml-auto">
+    <input type="text" placeholder="Enter Search Your Task" class="form-control" name="todoTask"
+           (input)="getSearchTask()" [(ngModel)]="todo.todoTask">
+  </label>
+  <button class="btn  btn-sm ml-3" (click)="sorting(1)">Up</button>
+  <button class="btn  btn-sm ml-3" (click)="sorting(-1)">Down</button>
+  <div *ngIf="dataLoading === true">
+    <div class="alert alert-warning fade show"><span>Data Not Available</span></div>
+  </div>
+  <ul class="list-unstyled" *ngFor="let todo of todos; let i = index">
+    <li class="card card-body mb-2" [class.bg-light]="todo.isActive">
+
+
+      <h3>{{todo.todoTask}}
+        <small>
+
+          <button class="btn btn-dark btn-sm" (click)="todo.hide = !todo.hide">
+            <i [ngClass]="todo.hide ? 'fa fa-minus' : 'fa fa-plus'"></i>
+          </button>
+
+          <button class="btn btn-success btn-sm ml-3" routerLink="/todo/edit/{{todo._id}}">Edit
+          </button>
+          <button class="btn btn-danger btn-sm ml-3" (click)="deleteTodo(todo._id)">Delete</button>
+        </small>
+      </h3>
+      <ul class="list-group" *ngIf="todo.hide">
+        <li class="list-group-item">
+
+          TodoDueDate : {{todo.todoDueDate}}
+        </li>
+        <li class="list-group-item">
+          Todo Time: {{todo.todoTime}}
+        </li>
+        <li class="list-group-item">
+          Todo Status: {{todo.todoStatus}}
+        </li>
+      </ul>
+
+    </li>
+
+  </ul>
+
+  <div class="pagination-footer offset-md-2">
+    <div class="card text-center m-3">
+      <div class="card-body">
+
+        <ul class="pagination">
+
+          <li class="page-item number-item" *ngFor="let data of pageOfItems;let i=index ">
+            <div class="page-link" (click)="clickPage(i)" [ngClass]="{'active-view-tab': pageNo === i}"> {{i + 1}} </div>
+          </li>
+
+        </ul>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="success" *ngIf="showSucessMessage">
+  <div class="alert alert-primary fade show"><span>{{showSucessMessage}}</span></div>
+</div>
+
+<div class="bg-warning" *ngIf="serverErrorMessages">
+  <div class="alert alert-danger fade show"><span>{{serverErrorMessages}}</span></div>
+</div>
+
+
+
+
+
+
+
+

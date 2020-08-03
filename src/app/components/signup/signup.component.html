@@ -1,0 +1,70 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-6 m-auto">
+      <div class="mt-5">
+        <div class="card card-body ">
+          <h1 class="text-center mb-3 font-weight-lighter">
+            <i class="fa fa-user"></i> Register
+          </h1>
+
+          <form name="form" (ngSubmit)="f.form.valid && createNewUser(f)" #f="ngForm"
+                [mustMatch]="['password', 'confirmPassword']" novalidate>
+            <div class="form-group">
+              <label>User Name</label>
+              <input type="text" class="form-control" name="firstName" [(ngModel)]="user.userName" #userName="ngModel"
+                     [ngClass]="{ 'is-invalid': f.submitted && userName.invalid }" autocomplete="on" required/>
+              <div *ngIf="f.submitted && userName.invalid" class="invalid-feedback">
+                <div *ngIf="userName.errors.required">User Name is required</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" class="form-control" name="email" [(ngModel)]="user.userEmail" #email="ngModel"
+                     [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" autocomplete="on" required email/>
+              <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+                <div *ngIf="email.errors.required">Email is required</div>
+                <div *ngIf="email.errors.email">Email must be a valid email address</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control" name="password" [(ngModel)]="user.userPassword"
+                     #userPassword="ngModel" [ngClass]="{ 'is-invalid': f.submitted && userPassword.invalid }"
+                     autocomplete="on" required minlength="6"/>
+              <div *ngIf="f.submitted && userPassword.invalid" class="invalid-feedback">
+                <div *ngIf="userPassword.errors.required">Password is required</div>
+                <div *ngIf="userPassword.errors.minlength">Password is minimum 6 character required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Confirm Password</label>
+              <input type="password" class="form-control" name="confirmPassword" [(ngModel)]="user.confirmPassword"
+                     #confirmPassword="ngModel" [ngClass]="{ 'is-invalid': f.submitted && confirmPassword.invalid }"
+                     autocomplete="on" required/>
+              <div *ngIf="f.submitted && confirmPassword.invalid" class="invalid-feedback">
+                <div *ngIf="confirmPassword.errors.required">Confirm Password is required</div>
+                <div *ngIf="confirmPassword.errors.mustMatch">Passwords must match</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary">Register</button>
+            </div>
+          </form>
+          <p class="lead mt-4">Have An Account? <a routerLink="/users/signin">Login</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="success" *ngIf="showSucessMessage">
+  <div class="alert alert-primary fade show"><span>{{showSucessMessage}}</span></div>
+</div>
+
+<div class="bg-warning" *ngIf="serverErrorMessages">
+  <div class="alert alert-danger fade show"><span>{{serverErrorMessages}}</span></div>
+</div>
+
+

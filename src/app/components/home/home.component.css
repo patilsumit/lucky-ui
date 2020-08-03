@@ -1,0 +1,11 @@
+.pagination-footer{
+  position: fixed;
+  left: 0;
+  bottom: 5%;
+}
+.active-view-tab {
+  color: #5334b4 !important;
+  font-weight: bold;
+  border-bottom: 3px solid #5333b4;
+  padding-bottom: 12px;
+}
